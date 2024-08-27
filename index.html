@@ -106,6 +106,15 @@
             color: #0066cc;
             font-weight: bold;
         }
+        .badgerctf-message {
+            background-color: #ffeeba;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+            display: none;
+        }
     </style>
 </head>
 <div class="container">
@@ -117,8 +126,10 @@
         <label for="server">Server:</label>
         <select id="server" name="server">
             <option value="sulu.cs.wcupa.edu">sulu.cs.wcupa.edu</option>
-            <option value="molly.cs.wcupa.edu">molly.cs.wcupa.edu</option>
+            <option value="molly.cs.wcupa.edu">molly.cs.wcupa.edu (GPU Server)</option>
+            <option value="badgerctf">BadgerCTF (Cybersecurity Courses) </option>
             <option value="bones.cs.wcupa.edu">bones.cs.wcupa.edu (Faculty Only)</option>
+
         </select>
     </form>
 
@@ -126,6 +137,11 @@
         <h3>Login Command:</h3>
         <p id="commandText"></p>
     </div>
+
+    <div id="badgerctfMessage" class="badgerctf-message">
+        Please visit <a href="/badgerctf.html">badgerctf.html</a>
+    </div>
+    <div id="instructionsContent">
 
     <div class="tab">
         <button class="tablinks active" onclick="openTab(event, 'Instructions')">Instructions</button>
@@ -192,6 +208,7 @@
             <img src="./img/filezilla.png" alt="FileZilla Configuration" />
         </div>
     </div>
+    </div>
 </div>
 
 <script>
@@ -216,8 +233,21 @@
         // Ensure the username always ends with @wcupa.edu
         var fullUsername = inputUsername.endsWith('@wcupa.edu') ? inputUsername : inputUsername + '@wcupa.edu';
 
-        // Use the full username (including @wcupa.edu) in the command
-        var command = `ssh -p 54322 ${fullUsername}@${server}`;
+        var command = '';
+        var badgerctfMessage = document.getElementById('badgerctfMessage');
+        var loginCommand = document.getElementById('loginCommand');
+        var instructionsContent = document.getElementById('instructionsContent');
+
+        if (server === 'badgerctf') {
+            badgerctfMessage.style.display = 'block';
+            loginCommand.style.display = 'none';
+            instructionsContent.style.display = 'none';
+        } else {
+            command = `ssh -p 54322 ${fullUsername}@${server}`;
+            badgerctfMessage.style.display = 'none';
+            loginCommand.style.display = 'block';
+            instructionsContent.style.display = 'block';
+        }
 
         // Safely update elements
         safelySetTextContent('commandText', command);
@@ -238,14 +268,16 @@
             safelySetTextContent('serverDescription', `This guide will help you connect to the ${server} server using your WCU account. This is a general-purpose server for faculty only use in the Computer Science Department.`);
             var facultyWarning = document.getElementById('facultyWarning');
             if (facultyWarning) facultyWarning.style.display = 'block';
-        } else {
+        } else if (server !== 'badgerctf') {
             safelySetTextContent('serverDescription', `This guide will help you connect to the ${server} server using your WCU account. This is a general-purpose server for student and faculty use in the Computer Science Department.`);
             var facultyWarning = document.getElementById('facultyWarning');
             if (facultyWarning) facultyWarning.style.display = 'none';
         }
 
         // Update PuTTY image
-        updatePuttyImage(server);
+        if (server !== 'badgerctf') {
+            updatePuttyImage(server);
+        }
     }
 
 

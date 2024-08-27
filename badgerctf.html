@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BadgerCTF Server Login Instructions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      color: #003366;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      margin-top: 20px;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      color: #003366;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #003366;
+      color: white;
+    }
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    .image-container {
+      max-width: 100%;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    pre {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .highlight {
+      font-family: 'Courier New', monospace;
+      background-color: #f0f0f0;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>BadgerCTF Server Login Instructions</h1>
+
+  <div class="tab">
+    <button class="tablinks active" onclick="openTab(event, 'GeneralInfo')">General Info</button>
+    <button class="tablinks" onclick="openTab(event, 'Windows')">Windows</button>
+    <button class="tablinks" onclick="openTab(event, 'MacOS')">MacOS</button>
+    <button class="tablinks" onclick="openTab(event, 'Linux')">Linux</button>
+  </div>
+
+  <div id="GeneralInfo" class="tabcontent" style="display:block;">
+    <h2>General Information</h2>
+    <p>To connect to the BadgerCTF server, you will need:</p>
+    <ul>
+      <li>A BadgerCTF username and password (not your WCU account username/password)</li>
+      <li>An SSH client (built-in for MacOS and Linux, MobaXterm recommended for Windows)</li>
+    </ul>
+    <p>Connection details:</p>
+    <ul>
+      <li>Hostname: <span class="highlight">badgerctf.com</span></li>
+      <li>Port: <span class="highlight">1234</span></li>
+    </ul>
+    <div class="account-box">
+      <h3>Apply for a username and password</h3>
+      <p>Please send an email to <a href="mailto:schen@wcupa.edu">schen@wcupa.edu</a> to receive your account information.</p>
+    </div>
+    <div class="account-box">
+      <h3>Forget my password</h3>
+      <p>Please send an email to <a href="mailto:schen@wcupa.edu">schen@wcupa.edu</a> to reset your password.</p>
+    </div>
+    <div class="account-box">
+      <h3>Change my password</h3>
+      <p>You can go to <a href="https://account.badgerctf.com/" target="_blank">https://account.badgerctf.com/</a> to change your password.</p>
+    </div>
+  </div>
+
+  <div id="Windows" class="tabcontent">
+    <h2>Connecting from Windows</h2>
+    <h3>Using MobaXterm</h3>
+    <ol>
+      <li>Download and install <a href="http://mobaxterm.mobatek.net/download-home-edition.html" target="_blank">MobaXterm</a></li>
+      <li>Launch MobaXterm</li>
+      <li>Click on the "Session" button in the toolbar</li>
+      <li>Select "SSH" as the session type</li>
+      <li>Enter the following details:
+        <ul>
+          <li>Remote host: <span class="highlight">badgerctf.com</span></li>
+          <li>Port: <span class="highlight">1234</span></li>
+        </ul>
+      </li>
+      <li>Click "OK" to start the session</li>
+      <li>Enter your BadgerCTF username and password when prompted</li>
+    </ol>
+  </div>
+
+  <div id="MacOS" class="tabcontent">
+    <h2>Connecting from MacOS</h2>
+    <ol>
+      <li>Open Terminal (Applications >> Utilities >> Terminal)</li>
+      <li>Type the following command (replace YOUR_USERNAME with your BadgerCTF username):
+        <pre><code>ssh YOUR_USERNAME@badgerctf.com -p 1234</code></pre>
+      </li>
+      <li>Enter your password when prompted</li>
+    </ol>
+  </div>
+
+  <div id="Linux" class="tabcontent">
+    <h2>Connecting from Linux</h2>
+    <ol>
+      <li>Open a terminal window</li>
+      <li>Type the following command (replace YOUR_USERNAME with your BadgerCTF username):
+        <pre><code>ssh YOUR_USERNAME@badgerctf.com -p 1234</code></pre>
+      </li>
+      <li>Enter your password when prompted</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+</body>
+</html>
